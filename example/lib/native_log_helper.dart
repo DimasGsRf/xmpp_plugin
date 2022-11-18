@@ -1,13 +1,13 @@
 import 'dart:io';
 
-import 'package:device_info_plus/device_info_plus.dart';
+// import 'package:device_info_plus/device_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class NativeLogHelper {
   static late SharedPreferences _prefs;
-  static final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+  // static final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
 
   static Future initMySharedPreferences() async {
     _prefs = await SharedPreferences.getInstance();
@@ -45,11 +45,11 @@ class NativeLogHelper {
   static Future<String> getFilePath() async {
     try {
       if (Platform.isAndroid) {
-        final androidInfo = await deviceInfoPlugin.androidInfo;
-        final sdkVersion = androidInfo.version.sdkInt;
+        // final androidInfo = await deviceInfoPlugin.androidInfo;
+        // final sdkVersion = androidInfo.version.sdkInt;
         final status = await Permission.storage.status;
         if (status.isGranted) {
-          return await _getAndroidFilePath(sdkVersion!);
+          // return await _getAndroidFilePath(sdkVersion!);
         }
       } else {
         final storageDirectory = await getApplicationDocumentsDirectory();
