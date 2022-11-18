@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
-import 'package:share_plus/share_plus.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_xmpp_example/constants.dart';
@@ -281,7 +280,7 @@ class _MyAppState extends State<MyApp>
             IconButton(
               onPressed: () async {
                 if (await NativeLogHelper().isFileExist()) {
-                  Share.shareFiles([NativeLogHelper.logFilePath]);
+                  // Share.shareFiles([NativeLogHelper.logFilePath]);
                 } else {
                   // if (_scaffoldKey.currentState != null) {
                   //   _scaffoldKey.currentState!.showSnackBar(new SnackBar(content: new Text('File not found!')));
