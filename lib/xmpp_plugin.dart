@@ -152,6 +152,8 @@ class XmppConnection {
         dataChangelist.forEach((element) {
           if (eventModel.msgtype == 'chat') {
             element.onChatMessage(messageChat);
+            ChatState chatState = ChatState.fromJson(dataEvent);
+            element.onChatStateChange(chatState);
           } else if (eventModel.msgtype == 'groupchat') {
             element.onGroupMessage(messageChat);
           } else if (eventModel.msgtype == 'normal') {
@@ -159,10 +161,7 @@ class XmppConnection {
           } else if (eventModel.type == 'presence') {
             PresentModel presentModel = PresentModel.fromJson(dataEvent);
             element.onPresenceChange(presentModel);
-          } else if (eventModel.type == 'chatstate') {
-            ChatState chatState = ChatState.fromJson(dataEvent);
-            element.onChatStateChange(chatState);
-          }
+          } else if (eventModel.type == 'chatstate') {}
         });
       },
     );

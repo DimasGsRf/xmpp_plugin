@@ -46,7 +46,6 @@ class _MyAppState extends State<MyApp>
     checkStoragePermission();
     XmppConnection.addListener(this);
     super.initState();
-    log('didChangeAppLifecycleState() initState');
     WidgetsBinding.instance.addObserver(this);
   }
 
@@ -54,33 +53,34 @@ class _MyAppState extends State<MyApp>
   void dispose() {
     XmppConnection.removeListener(this);
     WidgetsBinding.instance.removeObserver(this);
-    log('didChangeAppLifecycleState() dispose');
+    print('didChangeAppLifecycleState() dispose');
     super.dispose();
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    log('didChangeAppLifecycleState()');
+    print('didChangeAppLifecycleState()');
     switch (state) {
       case AppLifecycleState.inactive:
       case AppLifecycleState.paused:
       case AppLifecycleState.detached:
-        log('detachedCallBack()');
+        print('detachedCallBack()');
         break;
       case AppLifecycleState.resumed:
-        log('resumed detachedCallBack()');
+        print('resumed detachedCallBack()');
         break;
     }
   }
 
   Future<void> connect() async {
+    presentMo.clear();
     final auth = {
-      "user_jid": "test2@darknet.im",
-      "password": "12345678",
-      "host": "darknet.im",
+      "user_jid": "${_userNameController.text}@xmpp.sev-2.com", //"dimasgs",
+      "password": "Password123",
+      "host": "xmpp.sev-2.com",
       "port": '5222',
-      "nativeLogFilePath": NativeLogHelper.logFilePath,
-      "requireSSLConnection": true,
+      // "nativeLogFilePath": NativeLogHelper.logFilePath,
+      "requireSSLConnection": false,
       "autoDeliveryReceipt": true,
       "useStreamManagement": false,
       "automaticReconnection": true,
@@ -145,17 +145,22 @@ class _MyAppState extends State<MyApp>
   @override
   void onPresenceChange(PresentModel presentModel) {
     presentMo.add(presentModel);
-    log('onPresenceChange ~~>>${presentModel.toJson()}');
+    presentMo.forEach((element) {
+      print("LENGTH: ${presentMo.length}, ${element.toJson()}");
+    });
+    // presentMo.forEach((element) {
+    //   print('onPresenceChange ~~>>${element.toJson()}');
+    // });
   }
 
   @override
   void onChatStateChange(ChatState chatState) {
-    log('onChatStateChange ~~>>$chatState');
+    print('onChatStateChange ~~>>$chatState');
   }
 
   @override
   void onConnectionEvents(ConnectionEvent connectionEvent) {
-    log('onConnectionEvents ~~>>${connectionEvent.toJson()}');
+    print('onConnectionEvents ~~>>${connectionEvent.toJson()}');
     connectionStatus = connectionEvent.type!.toConnectionName();
     connectionStatusMessage = connectionEvent.error ?? '';
     setState(() {});
@@ -463,7 +468,7 @@ class _MyAppState extends State<MyApp>
                       child: ElevatedButton(
                         onPressed: () async {
                           await createMUC(
-                              "${_createMUCNamecontroller.text}", true);
+                              "${_createMUCNamecontroller.text}", false);
                         },
                         child: Text('Create Group'),
                         style: ElevatedButton.styleFrom(
@@ -534,10 +539,12 @@ class _MyAppState extends State<MyApp>
                       children: [
                         ElevatedButton(
                           onPressed: () async {
-                            _joinGroup(
-                                context,
-                                "${_joinMUCTextController.text}",
-                                "${_joinTimeController.text}");
+                            await joinMucGroups(
+                                ["${_joinMUCTextController.text}"]);
+                            // _joinGroup(
+                            //     context,
+                            //     "${_joinMUCTextController.text}",
+                            //     "${_joinTimeController.text}");
                           },
                           child: Text('Join Group'),
                           style: ElevatedButton.styleFrom(
@@ -578,7 +585,7 @@ class _MyAppState extends State<MyApp>
                   hintText: "Enter Message",
                   textEditController: _messageController,
                   onChanged: (value) {
-                    _showTypingStatus(true);
+                    // _showTypingStatus(true);
                   },
                 ),
                 SizedBox(
@@ -618,7 +625,7 @@ class _MyAppState extends State<MyApp>
                   children: [
                     ElevatedButton(
                       onPressed: () async {
-                        _showTypingStatus(false);
+                        // _showTypingStatus(false);
                         int id = DateTime.now().millisecondsSinceEpoch;
                         (dropDownValue == "Chat")
                             ? await flutterXmpp.sendMessageWithType(
@@ -839,16 +846,17 @@ class _MyAppState extends State<MyApp>
     print('responseTest groupResponse $groupResponse');
   }
 
-  void _joinGroup(BuildContext context, String grouname, String time,
+  void _joinGroup(BuildContext context, String groupName, String time,
       {bool isManageGroup = false}) async {
-    bool response = await joinMucGroup("$grouname,$time");
+    // bool response = await joinMucGroup("$groupName,$time");
+    String response = await joinMucGroups(["$groupName"]);
     print("responseTest joinResponse $response");
-    if (response && isManageGroup) {
+    if (response == "SUCCESS" && isManageGroup) {
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => HomePage(
-            groupName: grouname,
+            groupName: groupName,
             addMembersInGroup: addMembersInGroup,
             addAdminsInGroup: addAdminsInGroup,
             removeMember: removeMember,
