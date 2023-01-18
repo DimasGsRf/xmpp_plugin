@@ -19,7 +19,6 @@ import 'package:xmpp_plugin/success_response_event.dart';
 import 'package:xmpp_plugin/xmpp_plugin.dart';
 
 import 'mamExamples.dart';
-import 'native_log_helper.dart';
 
 const myTask = "syncWithTheBackEnd";
 
@@ -75,11 +74,10 @@ class _MyAppState extends State<MyApp>
   Future<void> connect() async {
     presentMo.clear();
     final auth = {
-      "user_jid": "${_userNameController.text}@xmpp.sev-2.com", //"dimasgs",
-      "password": "Password123",
-      "host": "xmpp.sev-2.com",
+      "user_jid": "dimasgs@sev-2.com", //dimasgs@sev-2.com
+      "password": "password",
+      "host": "xmpp.sev-2.com", //"mul14.net",
       "port": '5222',
-      // "nativeLogFilePath": NativeLogHelper.logFilePath,
       "requireSSLConnection": false,
       "autoDeliveryReceipt": true,
       "useStreamManagement": false,
@@ -126,8 +124,12 @@ class _MyAppState extends State<MyApp>
 
   @override
   void onChatMessage(MessageChat messageChat) {
-    events.add(messageChat);
-    print('onChatMessage: ${messageChat.toEventData()}');
+    if (messageChat.body != "") {
+      setState(() {
+        events.add(messageChat);
+      });
+      print('onChatMessage: ${messageChat.toEventData()}');
+    }
   }
 
   @override
@@ -810,28 +812,28 @@ class _MyAppState extends State<MyApp>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "from: ${event.from}",
-          ),
-          Text(
-            "id: ${event.id}",
-          ),
-          Text(
-            "Type: ${event.type}",
-          ),
-          Text(
-            "message: ${event.body}",
-          ),
-          Text(
-            "msgtype: ${event.msgtype}",
-          ),
-          Text(
-            "customText: ${event.customText}",
+            "from: ${event.toEventData()}",
           ),
           // Text(
-          //   "PresenceMode: ${event.presenceMode}",
+          //   "id: ${event.id}",
           // ),
           // Text(
-          //   "PresenceType: ${event.presenceType}",
+          //   "Type: ${event.type}",
+          // ),
+          // Text(
+          //   "message: ${event.body}",
+          // ),
+          // Text(
+          //   "msgtype: ${event.msgtype}",
+          // ),
+          // Text(
+          //   "customText: ${event.customText}",
+          // ),
+          // Text(
+          //   "PresenceMode: ${event.senderJid}",
+          // ),
+          // Text(
+          //   "PresenceType: ${event.}",
           // ),
           Divider(
             color: Colors.black,
