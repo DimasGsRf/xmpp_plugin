@@ -459,6 +459,7 @@ public class FlutterXmppConnection implements ConnectionListener {
         FlutterXmppConnectionService.sConnectionState = ConnectionState.CONNECTING;
         XMPPTCPConnectionConfiguration.Builder conf = XMPPTCPConnectionConfiguration.builder();
         conf.setXmppDomain(mServiceName);
+        conf.setSecurityMode(ConnectionConfiguration.SecurityMode.disabled);
 
         // Check if the Host address is the ip then set up host and host address.
         if (Utils.validIP(mHost)) {
@@ -481,23 +482,6 @@ public class FlutterXmppConnection implements ConnectionListener {
         conf.setResource(mResource);
         conf.setCompressionEnabled(true);
         conf.enableDefaultDebugger();
-
-
-        if (mRequireSSLConnection) {
-            SSLContext context = null;
-            try {
-                context = SSLContext.getInstance(Constants.TLS);
-                context.init(null, new TrustManager[]{new TLSUtils.AcceptAllTrustManager()}, new SecureRandom());
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            } catch (KeyManagementException e) {
-                e.printStackTrace();
-            }
-            conf.setCustomSSLContext(context);
-
-            conf.setKeystoreType(null);
-            conf.setSecurityMode(ConnectionConfiguration.SecurityMode.required);
-        }
 
         Utils.printLog(" connect 1 mServiceName: " + mServiceName + " mHost: " + mHost + " mPort: " + Constants.PORT + " mUsername: " + mUsername + " mPassword: " + mPassword + " mResource:" + mResource);
         //Set up the ui thread broadcast message receiver.
