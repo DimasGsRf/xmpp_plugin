@@ -55,8 +55,9 @@ public class MAMManager {
                 org.jivesoftware.smackx.mam.MamManager.MamQuery query = mamManager.queryArchive(queryArgs.build());
                 List<Message> messageList = query.getMessages();
 
+                Utils.printLog("Received Message " + messageList.size());
                 for (Message message : messageList) {
-                    Utils.printLog("Received Message " + message.toXML(null));
+                    Utils.printLog("Received Message " + message.toXML());
                     Utils.broadcastMessageToFlutter(FlutterXmppConnection.getApplicationContext(), message);
                 }
 

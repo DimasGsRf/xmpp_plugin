@@ -74,9 +74,9 @@ class _MyAppState extends State<MyApp>
   Future<void> connect() async {
     presentMo.clear();
     final auth = {
-      "user_jid": "dimasgs@sev-2.com", //dimasgs@sev-2.com
-      "password": "password",
-      "host": "xmpp.sev-2.com", //"mul14.net",
+      "user_jid": "dimasgs@sev-2.com", //_userData.userJid,
+      "password": "password", //"Password123",
+      "host": "xmpp.sev-2.com", //"xmpp.sev-2.com",
       "port": '5222',
       "requireSSLConnection": false,
       "autoDeliveryReceipt": true,
@@ -171,7 +171,7 @@ class _MyAppState extends State<MyApp>
   Future<void> disconnectXMPP() async => await flutterXmpp.logout();
 
   Future<String> joinMucGroups(List<String> allGroupsId) async {
-    return await flutterXmpp.joinMucGroups(allGroupsId);
+    return await flutterXmpp.joinMucGroups(["testroom@muc.sev-2.com"]);
   }
 
   Future<bool> joinMucGroup(String groupId) async {

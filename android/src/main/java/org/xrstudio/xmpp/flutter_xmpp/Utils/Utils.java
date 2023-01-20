@@ -164,7 +164,7 @@ public class Utils {
 
     public static void broadcastMessageToFlutter(Context mApplicationContext, Message message) {
 
-        Utils.addLogInStorage(" Action: receiveMessageFromServer, Content: " + message.toXML(null).toString());
+        Utils.addLogInStorage(" Action: receiveMessageFromServer, Content: " + message.toXML().toString());
 
         message = parseEventStanzaMessage(message);
 
@@ -247,8 +247,7 @@ public class Utils {
                         PayloadItem<?> it = (PayloadItem<?>) items.get(j);
                         SimplePayload payloadElement = (SimplePayload) it.getPayload();
 
-                        String xmlStanza = payloadElement.toXML(null);
-
+                        String xmlStanza = payloadElement.toXML().toString();
                         message = (Message) PacketParserUtils.parseStanza(xmlStanza);
                     }
                 }
