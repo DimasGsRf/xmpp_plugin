@@ -76,9 +76,9 @@ public class Utils {
 
     public static String getRoomIdWithDomainName(String groupName, String host) {
         String roomId = groupName;
-        if (!groupName.contains(Constants.CONFERENCE)) {
-            roomId = groupName + Constants.SYMBOL_COMPARE_JID + Constants.CONFERENCE + Constants.DOT + host;
-        }
+        // if (!groupName.contains(Constants.CONFERENCE)) {
+        //     roomId = groupName + Constants.SYMBOL_COMPARE_JID + Constants.CONFERENCE + Constants.DOT + host;
+        // }
         return roomId;
     }
 

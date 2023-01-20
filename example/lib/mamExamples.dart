@@ -100,11 +100,10 @@ class _MamExamplesState extends State<MamExamples> {
   }
 
   void _requestMamMessages(userJid, requestSince, requestBefore, limit) {
-    // widget.flutterXmpp.requestMamMessages(userJid, requestSince, requestBefore, limit);
     widget.flutterXmpp
-        .requestMamMessages(
-            "jacktenor@darknet.im", "1673758800000", "1674018000000", "10")
-        .then((value) => debugPrint("QQQQ: $value"));
+        .requestMamMessages(userJid, requestSince, requestBefore, limit);
+    // widget.flutterXmpp.requestMamMessages(
+    //     "jacktenor@darknet.im", "1673758800000", "1674018000000", "10");
   }
 
   void _changeTypingStatus(userJid, typingStatus) {
