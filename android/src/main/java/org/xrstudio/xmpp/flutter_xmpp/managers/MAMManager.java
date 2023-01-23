@@ -23,39 +23,52 @@ public class MAMManager {
 
                 MamManager mamManager = MamManager.getInstanceFor(connection);
                 MamManager.MamQueryArgs.Builder queryArgs = MamManager.MamQueryArgs.builder();
+                long requestAfterts = Long.parseLong(requestSince);
+                if (requestAfterts > 0)
+                    queryArgs.limitResultsSince(new Date(requestAfterts));
 
-                if (requestBefore != null && !requestBefore.isEmpty()) {
-                    long requestBeforets = Long.parseLong(requestBefore);
-                    if (requestBeforets > 0)
-                        queryArgs.limitResultsBefore(new Date(requestBeforets));
-                }
-                if (requestSince != null && !requestSince.isEmpty()) {
-                    long requestAfterts = Long.parseLong(requestSince);
-                    if (requestAfterts > 0)
-                        queryArgs.limitResultsSince(new Date(requestAfterts));
-                }
-                if (limit != null && !limit.isEmpty()) {
-
-                    int limitMessage = Integer.parseInt(limit);
-                    if (limitMessage > 0) {
-                        queryArgs.setResultPageSizeTo(limitMessage);
-                    } else {
-                        queryArgs.setResultPageSizeTo(Integer.MAX_VALUE);
-                    }
-
-                }
-                userJid = Utils.getValidJid(userJid);
-
-                if (userJid != null && !userJid.isEmpty()) {
-                    Jid jid = Utils.getFullJid(userJid);
-                    queryArgs.limitResultsToJid(jid);
+                int limitMessage = Integer.parseInt(limit);
+                if (limitMessage > 0) {
+                    queryArgs.setResultPageSizeTo(limitMessage);
+                } else {
+                    queryArgs.setResultPageSizeTo(Integer.MAX_VALUE);
                 }
 
+                queryArgs.queryLastPage();
+
+
+//                if (requestBefore != null && !requestBefore.isEmpty()) {
+//                    long requestBeforets = Long.parseLong(requestBefore);
+//                    if (requestBeforets > 0)
+//                        queryArgs.limitResultsBefore(new Date(requestBeforets));
+//                }
+//                if (requestSince != null && !requestSince.isEmpty()) {
+//                    long requestAfterts = Long.parseLong(requestSince);
+//                    if (requestAfterts > 0)
+//                        queryArgs.limitResultsSince(new Date(requestAfterts));
+//                }
+//                if (limit != null && !limit.isEmpty()) {
+//
+//                    int limitMessage = Integer.parseInt(limit);
+//                    if (limitMessage > 0) {
+//                        queryArgs.setResultPageSizeTo(limitMessage);
+//                    } else {
+//                        queryArgs.setResultPageSizeTo(Integer.MAX_VALUE);
+//                    }
+//
+//                }
+//                userJid = Utils.getValidJid(userJid);
+//
+//                if (userJid != null && !userJid.isEmpty()) {
+//                    Jid jid = Utils.getFullJid(userJid);
+//                    queryArgs.limitResultsToJid(jid);
+//                }
+                queryArgs.build();
                 Utils.printLog("MAM query Args " + queryArgs.toString());
                 org.jivesoftware.smackx.mam.MamManager.MamQuery query = mamManager.queryArchive(queryArgs.build());
                 List<Message> messageList = query.getMessages();
 
-                Utils.printLog("Received Message " + messageList.size());
+                Utils.printLog("HISTORY CHAT LENGTH " + messageList.size());
                 for (Message message : messageList) {
                     Utils.printLog("Received Message " + message.toXML());
                     Utils.broadcastMessageToFlutter(FlutterXmppConnection.getApplicationContext(), message);
