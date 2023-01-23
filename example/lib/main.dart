@@ -188,6 +188,7 @@ class _MyAppState extends State<MyApp>
   }
 
   Future<void> getMembers(String groupName) async {
+    print("QQQQ: $groupName");
     await flutterXmpp.getMembers(groupName);
   }
 

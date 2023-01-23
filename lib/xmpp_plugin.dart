@@ -353,7 +353,7 @@ class XmppConnection {
     return admins;
   }
 
-  Future<void> requestMamMessages(String userJid, String requestSince,
+  Future<String> requestMamMessages(String userJid, String requestSince,
       String requestBefore, String limit) async {
     print(
         " Plugin : User Jid : $userJid , Request since : $requestSince , Request Before : $requestBefore, Limit : $limit ");
@@ -363,7 +363,8 @@ class XmppConnection {
       "requestSince": requestSince,
       "limit": limit
     };
-    await _channel.invokeMethod('request_mam', params);
+    String messages = await _channel.invokeMethod('request_mam', params);
+    return messages;
   }
 
   Future<String> changeTypingStatus(
@@ -397,6 +398,12 @@ class XmppConnection {
   Future<String> currentState() async {
     printLogForMethodCall('current_state', {});
     final String state = await _channel.invokeMethod('current_state');
+    return state;
+  }
+
+  Future<String> getMessage() async {
+    printLogForMethodCall('get_messages', {});
+    final String state = await _channel.invokeMethod('get_message');
     return state;
   }
 }

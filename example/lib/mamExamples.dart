@@ -82,10 +82,11 @@ class _MamExamplesState extends State<MamExamples> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  _changeTypingStatus(
-                    _userJidController.text,
-                    _chatStateController.text,
-                  );
+                  // _changeTypingStatus(
+                  //   _userJidController.text,
+                  //   _chatStateController.text,
+                  // );
+                  _getMessages();
                 },
                 child: Text("Update Typing Status"),
                 style: ElevatedButton.styleFrom(
@@ -101,11 +102,17 @@ class _MamExamplesState extends State<MamExamples> {
 
   // [<field var="FORM_TYPE" type="hidden"><value>urn:xmpp:mam:2</value></field>, <field var="start"><value>2023-01-20T00:00:00Z</value></field>]
   void _requestMamMessages(userJid, requestSince, requestBefore, limit) {
-    widget.flutterXmpp.requestMamMessages(
-        "testroom@muc.sev-2.com", "1642464000000", "1674219340000", "100");
+    widget.flutterXmpp
+        .requestMamMessages(
+            "testroom@muc.sev-2.com", "1642464000000", "1674219340000", "100")
+        .then((value) => print("value : $value"));
   }
 
   void _changeTypingStatus(userJid, typingStatus) {
     widget.flutterXmpp.changeTypingStatus("dimasgs@sev-2.com", "TYPING");
+  }
+
+  void _getMessages() {
+    widget.flutterXmpp.getMessage();
   }
 }
