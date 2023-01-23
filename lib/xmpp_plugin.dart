@@ -354,13 +354,11 @@ class XmppConnection {
     return admins;
   }
 
-  Future<String> requestMamMessages(String userJid, String requestSince,
-      String requestBefore, String limit) async {
-    print(
-        " Plugin : User Jid : $userJid , Request since : $requestSince , Request Before : $requestBefore, Limit : $limit ");
+  Future<String> requestMamMessages(String requestSince, String limit) async {
+    print(" Plugin : Request since : $requestSince , Limit : $limit ");
     final params = {
-      "userJid": userJid,
-      "requestBefore": requestBefore,
+      // "userJid": userJid,
+      // "requestBefore": requestBefore,
       "requestSince": requestSince,
       "limit": limit
     };
