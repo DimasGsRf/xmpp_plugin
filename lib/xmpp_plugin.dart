@@ -76,12 +76,13 @@ class XmppConnection {
   }
 
   Future<String> sendMessage(
-      String toJid, String body, String id, int time) async {
+      String toJid, String body, String id, int time, String senderJid) async {
     final params = {
       "to_jid": toJid,
       "body": body,
       "id": id,
       "time": time.toString(),
+      "senderJid": senderJid,
     };
     printLogForMethodCall('send_message', params);
     final String status = await _channel.invokeMethod('send_message', params);

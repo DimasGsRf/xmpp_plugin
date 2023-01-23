@@ -34,7 +34,7 @@ public class MAMManager {
                 }
 
                 queryArgs.queryLastPage();
-                
+
                 queryArgs.build();
                 Utils.printLog("MAM query Args " + queryArgs.toString());
                 org.jivesoftware.smackx.mam.MamManager.MamQuery query = mamManager.queryArchive(queryArgs.build());
