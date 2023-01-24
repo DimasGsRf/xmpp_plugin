@@ -57,12 +57,12 @@ public class MAMManager {
 //                    }
 //
 //                }
-                userJid = Utils.getValidJid(userJid);
-
-                if (userJid != null && !userJid.isEmpty()) {
-                    Jid jid = Utils.getFullJid(userJid);
-                    queryArgs.limitResultsToJid(jid);
-                }
+//                userJid = Utils.getValidJid(userJid);
+//
+//                if (userJid != null && !userJid.isEmpty()) {
+//                    Jid jid = Utils.getFullJid(userJid);
+//                    queryArgs.limitResultsToJid(jid);
+//                }
                 queryArgs.build();
                 Utils.printLog("MAM query Args " + queryArgs.toString());
                 org.jivesoftware.smackx.mam.MamManager.MamQuery query = mamManager.queryArchive(queryArgs.build());
