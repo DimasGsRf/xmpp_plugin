@@ -103,8 +103,7 @@ class _MamExamplesState extends State<MamExamples> {
   // [<field var="FORM_TYPE" type="hidden"><value>urn:xmpp:mam:2</value></field>, <field var="start"><value>2023-01-20T00:00:00Z</value></field>]
   void _requestMamMessages(userJid, requestSince, requestBefore, limit) {
     widget.flutterXmpp
-        .requestMamMessages(
-            "testroom@muc.sev-2.com", "1642464000000", "1674219340000", "100")
+        .requestMamMessages("newroom@muc.sev-2.com", "1642464000000", "100")
         .then((value) => print("value : $value"));
   }
 
