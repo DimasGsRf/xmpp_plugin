@@ -74,9 +74,9 @@ class _MyAppState extends State<MyApp>
   Future<void> connect() async {
     presentMo.clear();
     final auth = {
-      "user_jid": "dimasgs@sev-2.com", //_userData.userJid,
-      "password": "password", //"Password123",
-      "host": "xmpp.sev-2.com", //"xmpp.sev-2.com",
+      "user_jid": "dimasgalih@sev-2.com",
+      "password": "password",
+      "host": "xmpp.sev-2.com",
       "port": '5222',
       "requireSSLConnection": false,
       "autoDeliveryReceipt": true,
