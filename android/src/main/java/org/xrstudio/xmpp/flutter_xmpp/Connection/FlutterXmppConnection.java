@@ -31,7 +31,7 @@ import org.jivesoftware.smackx.muc.MultiUserChat;
 import org.jivesoftware.smackx.muc.MultiUserChatManager;
 import org.jivesoftware.smackx.receipts.DeliveryReceipt;
 import org.jivesoftware.smackx.receipts.DeliveryReceiptRequest;
-import org.jivesoftware.smackx.xdata.Form;
+// import org.jivesoftware.smackx.xdata.Form;
 import org.jivesoftware.smackx.xdata.form.Form;
 import org.jxmpp.jid.EntityBareJid;
 import org.jxmpp.jid.Jid;
@@ -322,10 +322,10 @@ public class FlutterXmppConnection implements ConnectionListener {
 
             if (persistent.equals(Constants.TRUE)) {
                 Form form = multiUserChat.getConfigurationForm();
-                Form answerForm = form.createAnswerForm();
-                answerForm.setAnswer(Constants.MUC_PERSISTENT_ROOM, true);
-                answerForm.setAnswer(Constants.MUC_MEMBER_ONLY, false);
-                multiUserChat.sendConfigurationForm(answerForm);
+                // Form answerForm = form.createAnswerForm();
+                // answerForm.setAnswer(Constants.MUC_PERSISTENT_ROOM, true);
+                // answerForm.setAnswer(Constants.MUC_MEMBER_ONLY, false);
+                // multiUserChat.sendConfigurationForm(answerForm);
             }
 
             isGroupCreatedSuccessfully = true;
