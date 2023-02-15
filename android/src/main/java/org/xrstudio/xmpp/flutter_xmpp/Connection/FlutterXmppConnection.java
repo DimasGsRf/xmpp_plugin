@@ -31,7 +31,7 @@ import org.jivesoftware.smackx.muc.MultiUserChat;
 import org.jivesoftware.smackx.muc.MultiUserChatManager;
 import org.jivesoftware.smackx.receipts.DeliveryReceipt;
 import org.jivesoftware.smackx.receipts.DeliveryReceiptRequest;
-//import org.jivesoftware.smackx.xdata.Form;
+import org.jivesoftware.smackx.xdata.Form;
 import org.jivesoftware.smackx.xdata.form.Form;
 import org.jxmpp.jid.EntityBareJid;
 import org.jxmpp.jid.Jid;
