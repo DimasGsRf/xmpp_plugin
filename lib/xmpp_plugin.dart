@@ -151,18 +151,20 @@ class XmppConnection {
         MessageEvent eventModel = MessageEvent.fromJson(dataEvent);
         MessageChat messageChat = MessageChat.fromJson(dataEvent);
         dataChangelist.forEach((element) {
+          ChatState chatState = ChatState.fromJson(dataEvent);
           if (eventModel.msgtype == 'chat') {
             element.onChatMessage(messageChat);
-            ChatState chatState = ChatState.fromJson(dataEvent);
-            element.onChatStateChange(chatState);
           } else if (eventModel.msgtype == 'groupchat') {
             element.onGroupMessage(messageChat);
+          } else if (eventModel.type == 'chatstate' &&
+              chatState.chatStateType == 'composing') {
+            element.onChatStateChange(chatState);
           } else if (eventModel.msgtype == 'normal') {
             element.onNormalMessage(messageChat);
           } else if (eventModel.type == 'presence') {
             PresentModel presentModel = PresentModel.fromJson(dataEvent);
             element.onPresenceChange(presentModel);
-          } else if (eventModel.type == 'chatstate') {}
+          }
         });
       },
     );

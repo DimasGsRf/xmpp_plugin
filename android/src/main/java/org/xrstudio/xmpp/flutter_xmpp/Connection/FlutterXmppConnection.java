@@ -186,9 +186,9 @@ public class FlutterXmppConnection implements ConnectionListener {
             MultiUserChat muc = multiUserChatManager.getMultiUserChat((EntityBareJid) JidCreate.from(Utils.getRoomIdWithDomainName(groupName, mHost)));
 
             for (String memberJid : membersJid) {
-                if (!memberJid.contains(mHost)) {
-                    memberJid = memberJid + Constants.SYMBOL_COMPARE_JID + mHost;
-                }
+                // if (!memberJid.contains(mHost)) {
+                //     memberJid = memberJid + Constants.SYMBOL_COMPARE_JID + mHost;
+                // }
                 Jid jid = JidCreate.from(memberJid);
                 jidList.add(jid);
 
@@ -322,10 +322,10 @@ public class FlutterXmppConnection implements ConnectionListener {
 
             if (persistent.equals(Constants.TRUE)) {
                 Form form = multiUserChat.getConfigurationForm();
-//                Form answerForm = form.createAnswerForm();
-//                answerForm.setAnswer(Constants.MUC_PERSISTENT_ROOM, true);
-//                answerForm.setAnswer(Constants.MUC_MEMBER_ONLY, true);
-//                multiUserChat.sendConfigurationForm(answerForm);
+                Form answerForm = form.createAnswerForm();
+                answerForm.setAnswer(Constants.MUC_PERSISTENT_ROOM, true);
+                answerForm.setAnswer(Constants.MUC_MEMBER_ONLY, false);
+                multiUserChat.sendConfigurationForm(answerForm);
             }
 
             isGroupCreatedSuccessfully = true;
@@ -348,11 +348,11 @@ public class FlutterXmppConnection implements ConnectionListener {
                 String groupName = groupId;
                 String lastMsgTime = "0";
 
-                if (groupName.contains(",")) {
-                    String[] groupData = groupName.split(",");
-                    groupName = groupData[0];
-                    lastMsgTime = groupData[1];
-                }
+                // if (groupName.contains(",")) {
+                //     String[] groupData = groupName.split(",");
+                //     groupName = groupData[0];
+                //     lastMsgTime = groupData[1];
+                // }
 
                 MultiUserChat multiUserChat = multiUserChatManager.getMultiUserChat((EntityBareJid) JidCreate.from(Utils.getRoomIdWithDomainName(groupName, mHost)));
                 Resourcepart resourcepart = Resourcepart.from(mUsername);
@@ -484,6 +484,8 @@ public class FlutterXmppConnection implements ConnectionListener {
         conf.setResource(mResource);
         conf.setCompressionEnabled(true);
         conf.enableDefaultDebugger();
+        conf.setSecurityMode(ConnectionConfiguration.SecurityMode.disabled);
+
 
         Utils.printLog(" connect 1 mServiceName: " + mServiceName + " mHost: " + mHost + " mPort: " + Constants.PORT + " mUsername: " + mUsername + " mPassword: " + mPassword + " mResource:" + mResource);
         //Set up the ui thread broadcast message receiver.
