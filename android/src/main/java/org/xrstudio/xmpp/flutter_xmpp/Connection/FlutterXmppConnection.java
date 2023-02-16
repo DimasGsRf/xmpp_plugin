@@ -435,7 +435,7 @@ public class FlutterXmppConnection implements ConnectionListener {
                 mConnection.sendStanza(message);
 
             } catch (Exception e) {
-                e.printStackTrace()change_typing_status;
+                e.printStackTrace();
             }
         }
         // try {
