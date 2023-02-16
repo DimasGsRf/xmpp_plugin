@@ -369,12 +369,17 @@ class XmppConnection {
   }
 
   Future<String> changeTypingStatus(
-    String userJid,
+    // String userJid,
+    List<String> userJids,
     String typingstatus,
   ) async {
-    print(" Plugin : User Jid : $userJid , Typing Status : $typingstatus ");
+    // print(" Plugin : User Jid : $userJid , Typing Status : $typingstatus ");
+    userJids.forEach((element) {
+      print(" Plugin : User Jid : $element , Typing Status : $typingstatus ");
+    });
     final params = {
-      "userJid": userJid,
+      // "userJid": userJid,
+      "userJids": userJids,
       "typingStatus": typingstatus,
     };
     String status = await _channel.invokeMethod('change_typing_status', params);

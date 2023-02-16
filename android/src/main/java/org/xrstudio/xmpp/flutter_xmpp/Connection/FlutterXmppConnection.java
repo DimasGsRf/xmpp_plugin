@@ -420,22 +420,37 @@ public class FlutterXmppConnection implements ConnectionListener {
         return isJoinedSuccessfully;
     }
 
-    public static void updateChatState(String jid, String status) {
+    public static void updateChatState(ArrayList<String> jids, String status) {
+        for (String jid : jids) {
+            try {
 
-        try {
+                Jid toJid = Utils.getFullJid(jid);
 
-            Jid toJid = Utils.getFullJid(jid);
+                Message message = new Message(toJid);
+                ChatState chatState = ChatState.valueOf(status);
+                message.addExtension(new ChatStateExtension(chatState));
 
-            Message message = new Message(toJid);
-            ChatState chatState = ChatState.valueOf(status);
-            message.addExtension(new ChatStateExtension(chatState));
+                Utils.printLog("Sending Typing status " + message.toXML());
+                mConnection.sendStanza(message);
 
-            Utils.printLog("Sending Typing status " + message.toXML());
-            mConnection.sendStanza(message);
-
-        } catch (Exception e) {
-            e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+        // try {
+
+        //     Jid toJid = Utils.getFullJid(jid);
+
+        //     Message message = new Message(toJid);
+        //     ChatState chatState = ChatState.valueOf(status);
+        //     message.addExtension(new ChatStateExtension(chatState));
+
+        //     Utils.printLog("Sending Typing status " + message.toXML());
+        //     mConnection.sendStanza(message);
+
+        // } catch (Exception e) {
+        //     e.printStackTrace();
+        // }
     }
 
     public static void updatePresence(String presenceType, String presenceMode) {

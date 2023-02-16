@@ -64,6 +64,7 @@ public class Constants {
 
     // Params
     public static final String userJid = "userJid";
+    public static final String userJids = "userJids";
     public static final String requestBefore = "requestBefore";
     public static final String requestSince = "requestSince";
     public static final String limit = "limit";
