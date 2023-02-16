@@ -157,7 +157,8 @@ class XmppConnection {
           } else if (eventModel.msgtype == 'groupchat') {
             element.onGroupMessage(messageChat);
           } else if (eventModel.type == 'chatstate' &&
-              chatState.chatStateType == 'composing') {
+              (chatState.chatStateType == 'composing' ||
+                  chatState.chatStateType == 'paused')) {
             element.onChatStateChange(chatState);
           } else if (eventModel.msgtype == 'normal') {
             element.onNormalMessage(messageChat);
