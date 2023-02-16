@@ -682,7 +682,6 @@ public class FlutterXmppPlugin implements MethodCallHandler, FlutterPlugin, Acti
                 break;
 
             case Constants.GET_MAM:
-
                 String userJid = call.argument(Constants.userJid);
                 String requestBefore = call.argument(Constants.requestBefore);
                 String requestSince = call.argument(Constants.requestSince);
