@@ -373,6 +373,7 @@ class XmppConnection {
     // String userJid,
     List<String> userJids,
     String typingstatus,
+    String senderJid,
   ) async {
     // print(" Plugin : User Jid : $userJid , Typing Status : $typingstatus ");
     userJids.forEach((element) {
@@ -382,6 +383,7 @@ class XmppConnection {
       // "userJid": userJid,
       "userJids": userJids,
       "typingStatus": typingstatus,
+      "senderJid": senderJid,
     };
     String status = await _channel.invokeMethod('change_typing_status', params);
     return status;

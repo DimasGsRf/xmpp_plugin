@@ -695,9 +695,10 @@ public class FlutterXmppPlugin implements MethodCallHandler, FlutterPlugin, Acti
 
             case Constants.CHANGE_TYPING_STATUS:
                 ArrayList<String> userJids = call.argument(Constants.userJids);
+                String senderJid = call.argument(Constants.SENDER_JID);
                 String typingStatus = call.argument(Constants.typingStatus);
                 Utils.printLog("Typing Status : " + typingStatus);
-                FlutterXmppConnection.updateChatState(userJids, typingStatus);
+                FlutterXmppConnection.updateChatState(userJids, typingStatus, senderJid);
                 result.success("SUCCESS");
 
 //                String typingJid = call.argument(Constants.userJids);
