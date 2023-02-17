@@ -711,8 +711,9 @@ public class FlutterXmppPlugin implements MethodCallHandler, FlutterPlugin, Acti
 
                 String presenceType = call.argument(Constants.PRESENCE_TYPE);
                 String presenceMode = call.argument(Constants.PRESENCE_MODE);
-                Utils.printLog("presenceType : " + presenceType + " , Presence Mode : " + presenceMode);
-                FlutterXmppConnection.updatePresence(presenceType, presenceMode);
+                String presenceSenderJid = call.argument(Constants.SENDER_JID);
+                Utils.printLog("presenceType : " + presenceType + " , Presence Mode : " + presenceMode + " , SenderJID : " + presenceSenderJid);
+                FlutterXmppConnection.updatePresence(presenceType, presenceMode, presenceSenderJid);
                 result.success("SUCCESS");
                 break;
 

@@ -107,9 +107,9 @@ class _MamExamplesState extends State<MamExamples> {
         .then((value) => print("value : $value"));
   }
 
-  void _changeTypingStatus(userJid, typingStatus) {
-    widget.flutterXmpp.changeTypingStatus("dimasgs@sev-2.com", "TYPING");
-  }
+  // void _changeTypingStatus(userJid, typingStatus) {
+  //   widget.flutterXmpp.changeTypingStatus("dimasgs@sev-2.com", "TYPING");
+  // }
 
   void _getMessages() {
     widget.flutterXmpp.getMessage();

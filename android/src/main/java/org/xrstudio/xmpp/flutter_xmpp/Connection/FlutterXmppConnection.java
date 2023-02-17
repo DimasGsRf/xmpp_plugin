@@ -454,18 +454,20 @@ public class FlutterXmppConnection implements ConnectionListener {
         // }
     }
 
-    public static void updatePresence(String presenceType, String presenceMode) {
+    public static void updatePresence(String presenceType, String presenceMode, String senderJid) {
 
         try {
 
             Presence presence = null;
-
             Presence.Type type = Presence.Type.valueOf(presenceType);
             Presence.Mode mode = Presence.Mode.valueOf(presenceMode);
+            Jid fromJid = Utils.getFullJid(senderJid);
 
             presence = new Presence(type);
             presence.setMode(mode);
+            presence.setFrom(fromJid);
             mConnection.sendStanza(presence);
+            Utils.printLog("updatePresence " + presence.toXML());
 
         } catch (Exception e) {
             e.printStackTrace();

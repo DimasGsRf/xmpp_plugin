@@ -221,7 +221,8 @@ class _MyAppState extends State<MyApp>
   }
 
   Future<void> changePresenceType(presenceType, presenceMode) async {
-    await flutterXmpp.changePresenceType(presenceType, presenceMode);
+    await flutterXmpp.changePresenceType(
+        presenceType, presenceMode, "adityanovian@sev-2.com");
   }
 
   String dropDownValue = 'Chat';
@@ -891,11 +892,11 @@ class _MyAppState extends State<MyApp>
     }
   }
 
-  void _showTypingStatus(bool isTyping) {
-    flutterXmpp
-        .changeTypingStatus("test2@darknet.im,", isTyping ? "Typing" : "")
-        .then((value) => print("VALUE: $value"));
-  }
+  // void _showTypingStatus(bool isTyping) {
+  //   flutterXmpp
+  //       .changeTypingStatus("test2@darknet.im,", isTyping ? "Typing" : "")
+  //       .then((value) => print("VALUE: $value"));
+  // }
 }
 
 Widget customTextField({
