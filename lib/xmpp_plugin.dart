@@ -392,14 +392,10 @@ class XmppConnection {
   }
 
   Future<void> changePresenceType(
-      String presenceType, String presenceMode, String senderJid) async {
+      String presenceType, String presenceMode) async {
     print(
         " Plugin : presenceType : $presenceType , presenceMode : $presenceMode");
-    final params = {
-      "presenceType": presenceType,
-      "presenceMode": presenceMode,
-      "senderJid": senderJid,
-    };
+    final params = {"presenceType": presenceType, "presenceMode": presenceMode};
     await _channel.invokeMethod('change_presence_type', params);
   }
 
