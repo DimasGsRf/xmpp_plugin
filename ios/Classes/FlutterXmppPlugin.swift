@@ -152,11 +152,10 @@ public class FlutterXmppPlugin: NSObject, FlutterPlugin {
         
         let vHost : String = (vData["host"] as? String ?? "").trim()
         let vPort : String = (vData["port"] as? String ?? "0").trim()
-        let vUserId : String = (vData["user_jid"] as? String ?? "").trim()
-        let vUserJid = (vUserId.components(separatedBy: "@").first ?? "").trim()
+        let vUserJid = (vData["user_jid"] as? String ?? "").trim()
         
         var vResource : String = xmppConstants.Resource
-        let arrResource = vUserId.components(separatedBy: "/")
+        let arrResource = vUserJid.components(separatedBy: "/")
         if arrResource.count == 2 {
             vResource = (arrResource.last ?? vResource).trim()
         }
