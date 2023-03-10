@@ -7,7 +7,7 @@ import 'package:flutter_xmpp_example/constants.dart';
 import 'package:flutter_xmpp_example/homepage.dart';
 import 'package:flutter_xmpp_example/native_log_helper.dart';
 import 'package:flutter_xmpp_example/utils.dart';
-import 'package:permission_handler/permission_handler.dart';
+// import 'package:permission_handler/permission_handler.dart';
 import 'package:xmpp_plugin/custom_element.dart';
 import 'package:xmpp_plugin/ennums/xmpp_connection_state.dart';
 import 'package:xmpp_plugin/error_response_event.dart';
@@ -90,20 +90,20 @@ class _MyAppState extends State<MyApp>
   }
 
   void checkStoragePermission() async {
-    var status = await Permission.storage.status;
-    if (!status.isGranted) {
-      final PermissionStatus _permissionStatus =
-          await Permission.storage.request();
-      if (_permissionStatus.isGranted) {
-        String filePath = await NativeLogHelper().getDefaultLogFilePath();
-        print('logFilePath: $filePath');
-      } else {
-        print('logFilePath: please allow permission');
-      }
-    } else {
-      String filePath = await NativeLogHelper().getDefaultLogFilePath();
-      print('logFilePath: $filePath');
-    }
+    // var status = await Permission.storage.status;
+    // if (!status.isGranted) {
+    //   final PermissionStatus _permissionStatus =
+    //       await Permission.storage.request();
+    //   if (_permissionStatus.isGranted) {
+    //     String filePath = await NativeLogHelper().getDefaultLogFilePath();
+    //     print('logFilePath: $filePath');
+    //   } else {
+    //     print('logFilePath: please allow permission');
+    //   }
+    // } else {
+    //   String filePath = await NativeLogHelper().getDefaultLogFilePath();
+    //   print('logFilePath: $filePath');
+    // }
   }
 
   void _onError(Object error) {
