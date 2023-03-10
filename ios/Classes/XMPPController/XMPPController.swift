@@ -36,10 +36,7 @@ class XMPPController : NSObject {
     }
 
     init(hostName: String, hostPort : Int16, userId: String, password: String, resource: String) throws {
-        super.init()
-
-        let stUserJid = "\(userId)@\(hostName)"
-        guard let userJID = XMPPJID.init(string: stUserJid, resource: resource) else {
+        guard let userJID = XMPPJID.init(string: userId, resource: resource) else {
             APP_DELEGATE.objXMPPConnStatus = .Failed
             throw XMPPControllerError.wrongUserJID
         }
@@ -55,13 +52,11 @@ class XMPPController : NSObject {
         self.xmppStream.hostName = hostName
         self.xmppStream.hostPort = UInt16(hostPort)
         self.xmppStream.myJID = userJID
-
-        //SSL Connection
-        if xmpp_RequireSSLConnection {
-            self.xmppStream.startTLSPolicy = XMPPStreamStartTLSPolicy.required
-        }
+        
+        self.xmppStream.startTLSPolicy = XMPPStreamStartTLSPolicy.allowed
+        
+        super.init()
         self.xmppStream.addDelegate(self, delegateQueue: DispatchQueue.main)
-
         if xmpp_AutoReConnection {
            /// xmppReconnect Configuration
             xmppReconnect = XMPPReconnect()
@@ -99,9 +94,7 @@ class XMPPController : NSObject {
             return
         }
         do {
-            var vTimeout : TimeInterval = XMPPStreamTimeoutNone
-            vTimeout = 60.00
-            try self.xmppStream.connect(withTimeout: vTimeout)
+            try self.xmppStream.connect(withTimeout: XMPPStreamTimeoutNone)
             APP_DELEGATE.objXMPPConnStatus = .Processing
         } catch let error {
             print("\(#function) | Error: connect() | error: \(error.localizedDescription)")
@@ -176,22 +169,21 @@ extension XMPPController: XMPPStreamDelegate, XMPPMUCLightDelegate  {
             return
         }
         do {
+            let auth = XMPPPlainAuthentication(stream: stream, password: self.password)
             APP_DELEGATE.objXMPPConnStatus = .Connected
-            try stream.authenticate(withPassword: self.password)
+            try stream.authenticate(auth)
         } catch {
             APP_DELEGATE.objXMPPConnStatus = .Disconnect
         }
     }
 
     func xmppStreamDidDisconnect(_ sender: XMPPStream, withError error: Error?) {
-
         self.changeStatus(.Offline, withXMPPStrem: sender)
         APP_DELEGATE.objXMPPConnStatus = .Disconnect
     }
 
     //MARK:- Authenticate
     func xmppStreamDidAuthenticate(_ sender: XMPPStream) {
-
         if xmpp_UseStream {
             self.configureStreamManagement()
         }
