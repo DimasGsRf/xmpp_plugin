@@ -341,10 +341,10 @@ public class FlutterXmppPlugin: NSObject, FlutterPlugin {
         
         let vRoom = vData["group_id"] as? String ?? ""
         let arrRoomCompo : [String] = vRoom.components(separatedBy: ",")
-        if arrRoomCompo.count != 2 {
-            result(false)
-            return
-        }
+        // if arrRoomCompo.count != 2 {
+        //     result(false)
+        //     return
+        // }
         let vRoomName : String = arrRoomCompo.first ?? ""
         let vRoomTS : String = arrRoomCompo.last ?? "0"
         let vRoomTSLongFormat : Int64 = Int64(vRoomTS) ?? 0
