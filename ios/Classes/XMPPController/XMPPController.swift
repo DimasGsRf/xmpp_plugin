@@ -179,6 +179,7 @@ extension XMPPController: XMPPStreamDelegate, XMPPMUCLightDelegate  {
 
     func xmppStreamDidDisconnect(_ sender: XMPPStream, withError error: Error?) {
         self.changeStatus(.Offline, withXMPPStrem: sender)
+        print("xmppStreamDidDisconnect = \(error)")
         APP_DELEGATE.objXMPPConnStatus = .Disconnect
     }
 
