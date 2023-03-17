@@ -57,14 +57,14 @@ extension XMPPController : XMPPRoomDelegate {
             return
         }
         
-        let vUserId : String = self.getUserId(usingXMPPStream: withStrem)
+        let vUserId : String = "\(self.getUserId(usingXMPPStream: withStrem))@sev-2.com"
         if vUserId.isEmpty {
             print("\(#function) | XMPP UserId is nil/empty")
             
             sendMUCJoinStatus(false,roomName,"User Id Can't be empty")
             return
         }
-        guard let xmppJID = XMPPJID(string: getXMPPRoomJidName(withRoomName: roomName, withStrem: withStrem)) else {
+        guard let xmppJID = XMPPJID(string: roomName) else {
             print("\(#function) | Invalid XMPPRoom Jid: \(roomName)")
             
             sendMUCJoinStatus(false,roomName, "Invalid Room Name")

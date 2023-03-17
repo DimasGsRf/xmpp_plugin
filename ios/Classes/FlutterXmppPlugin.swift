@@ -152,11 +152,10 @@ public class FlutterXmppPlugin: NSObject, FlutterPlugin {
         
         let vHost : String = (vData["host"] as? String ?? "").trim()
         let vPort : String = (vData["port"] as? String ?? "0").trim()
-        let vUserId : String = (vData["user_jid"] as? String ?? "").trim()
-        let vUserJid = (vUserId.components(separatedBy: "@").first ?? "").trim()
+        let vUserJid = (vData["user_jid"] as? String ?? "").trim()
         
         var vResource : String = xmppConstants.Resource
-        let arrResource = vUserId.components(separatedBy: "/")
+        let arrResource = vUserJid.components(separatedBy: "/")
         if arrResource.count == 2 {
             vResource = (arrResource.last ?? vResource).trim()
         }
@@ -342,10 +341,10 @@ public class FlutterXmppPlugin: NSObject, FlutterPlugin {
         
         let vRoom = vData["group_id"] as? String ?? ""
         let arrRoomCompo : [String] = vRoom.components(separatedBy: ",")
-        if arrRoomCompo.count != 2 {
-            result(false)
-            return
-        }
+        // if arrRoomCompo.count != 2 {
+        //     result(false)
+        //     return
+        // }
         let vRoomName : String = arrRoomCompo.first ?? ""
         let vRoomTS : String = arrRoomCompo.last ?? "0"
         let vRoomTSLongFormat : Int64 = Int64(vRoomTS) ?? 0
